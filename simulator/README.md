@@ -24,11 +24,11 @@
 
 ```JSON
 {
-  "id": uuid,
-  "name": string,
-  "isActive": boolean,
-  "isConnected": boolean,
-  "timestamp": Date ISO Format UTC,
+  "id": "uuid",
+  "name": "string",
+  "isActive": "boolean",
+  "isConnected": "boolean",
+  "timestamp": "Date ISO Format UTC"
 }
 ```
 

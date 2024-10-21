@@ -1,16 +1,25 @@
-export type Device = {
+export type DeviceConfig = {
     id: string;
     name: string;
     isConnected: boolean;
     isActive: boolean;
-    sensors: Sensor[];
+    sensors: SensorConfig[];
 };
 
-export type Sensor = {
-    device?: string;
+export type SensorConfig = {
+    name: string;
+    delay: number;
+    valueRange: {
+        min: number;
+        max: number;
+    };
+}
+
+export type SensorData = {
+    id: string;
     name: string;
     value: number;
-    timestamp: Date;
+    timestamp: string;
 }
 
 export type EdgeConnection = {

@@ -1,7 +1,6 @@
-import { appConfig } from "./config/appConfig";
-import { deviceConfiguration } from "./config/deviceConfiguration";
+import generateData from "./simulator/generateData";
 
-(function runSimulator()  {
+(function runSimulator(): void {
     console.log('Running simulator...');
-    console.log({appConfig, deviceConfiguration: JSON.stringify(deviceConfiguration)});
+    generateData();
 })()

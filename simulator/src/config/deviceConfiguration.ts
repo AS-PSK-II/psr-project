@@ -1,10 +1,10 @@
-import { Device } from "../types";
+import { DeviceConfig } from "../types";
 import { v4 as uuid } from 'uuid';
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-export const deviceConfiguration: Device = {
+export const deviceConfig: DeviceConfig = {
     id: uuid(),
     name: process.env.APP_DEVICE_NAME || "simulator",
     isConnected: false,
@@ -12,18 +12,27 @@ export const deviceConfiguration: Device = {
     sensors: [
         {
             name: "temperature",
-            value: 0,
-            timestamp: new Date()
+            delay: 500,
+            valueRange: {
+                min: -20,
+                max: 50
+            }
         },
         {
             name: "humidity",
-            value: 0,
-            timestamp: new Date()
+            delay: 1000,
+            valueRange: {
+                min: 0,
+                max: 100
+            }
         },
         {
             name: "pressure",
-            value: 0,
-            timestamp: new Date()
+            delay: 60000,
+            valueRange: {
+                min: 900,
+                max: 1100
+            }
         }
     ]
 }

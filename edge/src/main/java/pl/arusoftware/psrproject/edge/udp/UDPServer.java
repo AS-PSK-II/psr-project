@@ -46,7 +46,7 @@ public class UDPServer implements Subject {
             byte[] buffer = new byte[1024];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             socket.receive(packet);
-            notifyObservers(new String(packet.getData(), StandardCharsets.UTF_8));
+            notifyObservers(new String(packet.getData(), StandardCharsets.UTF_8).substring(0, packet.getLength()));
         }
     }
 

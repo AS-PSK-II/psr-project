@@ -5,7 +5,7 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.time.Instant;
 
-public class InstantDeserializer implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
+public class InstantSerializer implements JsonSerializer<Instant>, JsonDeserializer<Instant> {
 
     @Override
     public JsonElement serialize(Instant instant, Type type, JsonSerializationContext jsonSerializationContext) {

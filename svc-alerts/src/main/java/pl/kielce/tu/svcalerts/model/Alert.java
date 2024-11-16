@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnTransformer;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +27,9 @@ public class Alert {
     @ColumnTransformer(write = "?::jsonb")
     @Column(name = "DATA", columnDefinition = "jsonb")
     private String data;
+
+
+    private Instant createdAt = Instant.now();
 
     @Override
     public String toString() {

@@ -40,6 +40,10 @@ public class DeviceConfig {
         return gson.fromJson(json, DeviceConfig.class);
     }
 
+    public static String toJSON(DeviceConfig deviceConfig) {
+        return gson.toJson(deviceConfig);
+    }
+
     @Override
     public String toString() {
         return "DeviceConfig{" +

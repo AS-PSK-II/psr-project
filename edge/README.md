@@ -13,6 +13,22 @@
 - Dane na kafkę są wysyłane i odbierane w postaci JSON
 - Aplikacja przechowuje mapę urządzeń (podłączonych) wraz z ich adresami w pamięci
 
+# Uruchomienie aplikacji
+
+Aby uruchomić aplikację, należy wejść do głównego folderu mikroserwisu i wykonać poniższą komendę
+
+## Unix
+
+```shell
+./gradlew run
+```
+
+## Windows
+
+```shell
+gradlew.bat run
+```
+
 # Schemat danych
 
 ## Schemat danych telemetrycznych wysyłanych na Kafkę (JSON)

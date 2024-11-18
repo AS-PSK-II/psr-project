@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
 }
@@ -23,7 +24,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'org.springframework.kafka:spring-kafka'
 
-    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
     compileOnly 'org.projectlombok:lombok:1.18.34'
@@ -39,3 +39,5 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+mainClassName = "pl.kielce.tu.svcservice.SvcServiceApplication"

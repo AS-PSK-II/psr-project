@@ -1,6 +1,9 @@
 # Technologie
 
 - JAVA
+- Kafka
+- TCP (Klient)
+- UDP (Serwer)
 
 # Opis
 

@@ -1,6 +1,8 @@
 # Technologie
 
 - NodeJS
+- UDP (Klient)
+- TCP (Serwer)
 
 # Opis
 

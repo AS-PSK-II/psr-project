@@ -29,4 +29,5 @@ export type EdgeConnection = {
 
 export type TCPServer = {
     port: number;
+    address: string;
 };

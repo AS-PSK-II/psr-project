@@ -1,4 +1,4 @@
 package pl.arusoftware.psrproject.edge.model;
 
-public class DeviceTCPServer {
+public record DeviceTCPServer(String address, int port) {
 }

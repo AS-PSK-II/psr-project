@@ -21,7 +21,7 @@ const edgeConnector: EdgeConnector = {
      startTCPServer: () => {
         const tcpServer = net.createServer((socket) => {
             socket.on("data", (data:Buffer) => {
-                console.log(data);
+                console.log(data.toString());
             });
         });
 

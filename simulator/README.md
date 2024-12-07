@@ -14,9 +14,9 @@
   - temperatura
   - ciśnienie
   - wilgotność
-- Jeśli zadana wartość odświeżania jest równa -1, dana wartość nie jest wysyłana dopóty, dopóki nie nastąpi jej 
+- Jeśli zadana wartość odświeżania jest równa -1, dana wartość nie jest wysyłana dopóty, dopóki nie nastąpi jej
   zmiana na wartość powyżej zera
-- Symulator nasłuchuje na zdarzenia przychodzące (Gniazdo TCP) z aplikacji brzegowej, aby reagować na zmianę 
+- Symulator nasłuchuje na zdarzenia przychodzące (Gniazdo TCP) z aplikacji brzegowej, aby reagować na zmianę
   konfiguracji
 - Symulator wysyła wszystkie swoje dane poprzez gniazdo UDP
 

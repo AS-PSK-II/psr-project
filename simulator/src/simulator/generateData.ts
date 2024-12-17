@@ -6,17 +6,22 @@ const generateData = (): void => {
     const {id, sensors} = deviceConfig;
 
     sensors.forEach((sensorConfig: SensorConfig) => {
-        setInterval(() => {
-            const sensorData: SensorData = {
-                id,
-                name: sensorConfig.name,
-                value: generateSensorValue(sensorConfig),
-                timestamp: new Date().toISOString()
-            }
-            edgeConnector.sendData(mapSensorDataToSend(sensorData));
-        }, sensorConfig.delay);
+        generateSensorData(id, sensorConfig);
     });
 };
+
+const generateSensorData = (id: string, sensorConfig: SensorConfig): void => {
+    const delay = deviceConfig.sensors.find(sensor => sensor.name === sensorConfig.name).delay;
+    const sensorData: SensorData = {
+        id,
+        name: sensorConfig.name,
+        value: generateSensorValue(sensorConfig),
+        timestamp: new Date().toISOString()
+    };
+    edgeConnector.sendData(mapSensorDataToSend(sensorData));
+    console.log({sensorData, delay})
+    setTimeout(() => generateSensorData(id, sensorConfig), delay);
+}
 
 const generateSensorValue = (sensorConfig: SensorConfig): number => {
     const { min, max } = sensorConfig.valueRange;

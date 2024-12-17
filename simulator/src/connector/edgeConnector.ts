@@ -2,6 +2,7 @@ import * as dgram from "node:dgram";
 import { Buffer } from "node:buffer";
 import { edgeConnectionConfig, tcpServerConfig } from "../config/edgeConnectionConfig";
 import * as net from "node:net";
+import { deviceConfig } from "../config/deviceConfiguration";
 
 type EdgeConnector = {
     sendData: (data: string) => void;
@@ -21,7 +22,10 @@ const edgeConnector: EdgeConnector = {
      startTCPServer: () => {
         const tcpServer = net.createServer((socket) => {
             socket.on("data", (data:Buffer) => {
-                console.log(data.toString());
+                const updatedConfig = JSON.parse(data.toString());
+                const deviceSensors = [...deviceConfig.sensors];
+                deviceSensors.find(sensor => sensor.name === updatedConfig.property).delay = updatedConfig.value;
+                deviceConfig.sensors = deviceSensors;
             });
         });
 

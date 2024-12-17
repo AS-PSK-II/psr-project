@@ -7,7 +7,7 @@ dotenv.config();
 export const deviceConfig: DeviceConfig = {
     id: uuid(),
     name: process.env.APP_DEVICE_NAME || "simulator",
-    isConnected: false,
+    isConnected: true,
     isActive: true,
     sensors: [
         {

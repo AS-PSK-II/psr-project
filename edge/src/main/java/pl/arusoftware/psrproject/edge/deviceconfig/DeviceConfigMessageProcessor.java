@@ -8,7 +8,6 @@ import pl.arusoftware.psrproject.edge.model.DeviceTCPServer;
 import pl.arusoftware.psrproject.edge.tcp.TCPClient;
 
 public class DeviceConfigMessageProcessor implements Runnable {
-    private final static String LOCALHOST_ADDRESS = "127.0.0.1";
     private final KafkaConsumer consumer;
     private final TCPClient tcpClient;
     private final DeviceCache deviceCache;
@@ -26,7 +25,6 @@ public class DeviceConfigMessageProcessor implements Runnable {
             consumer.receive(data -> {
                 try {
                     if (data != null) {
-                        System.out.println(data);
                         DeviceConfiguration deviceConfiguration = DeviceConfiguration.fromJSON(data);
                         Device device = deviceCache.getDevice(deviceConfiguration.device());
                         if (device != null) {

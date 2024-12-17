@@ -10,10 +10,9 @@ import pl.arusoftware.psrproject.edge.udp.observer.Subject;
 public class UDPReader implements Observer {
     private final KafkaProducer producer;
 
-    public UDPReader(Subject subject) {
+    public UDPReader(Subject subject, KafkaProducer producer) {
         subject.registerObserver(this);
-        this.producer = new KafkaProducer("localhost:9092");
-        this.producer.connect();
+        this.producer = producer;
     }
 
     @Override

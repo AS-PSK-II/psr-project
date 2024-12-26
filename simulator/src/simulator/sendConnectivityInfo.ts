@@ -9,7 +9,7 @@ const sendConnectivityInfo = (): void => {
         edgeConnector.sendData(JSON.stringify({
             ...rest,
             tcpServer: [tcpServerConfig],
-            timestamp: new Date().toISOString()
+            timestamp: new Date().getTime()
         }));
         console.log("SendConnectivityInfo");
     }, 60000)

@@ -16,7 +16,7 @@ const generateSensorData = (id: string, sensorConfig: SensorConfig): void => {
         id,
         name: sensorConfig.name,
         value: generateSensorValue(sensorConfig),
-        timestamp: new Date().toISOString()
+        timestamp: new Date().getTime()
     };
     edgeConnector.sendData(mapSensorDataToSend(sensorData));
     setTimeout(() => generateSensorData(id, sensorConfig), delay);

@@ -19,7 +19,7 @@ export type SensorData = {
     id: string;
     name: string;
     value: number;
-    timestamp: string;
+    timestamp: number;
 }
 
 export type EdgeConnection = {

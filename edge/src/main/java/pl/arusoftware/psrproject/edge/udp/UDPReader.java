@@ -20,7 +20,6 @@ public class UDPReader implements Observer {
         if (message != null) {
             try {
                 if (message.startsWith("{")) {
-                    System.out.println(message);
                     Device deviceConnectionInfo = Device.fromJSON(message);
                     producer.send("device", deviceConnectionInfo.id() + "-" + deviceConnectionInfo.timestamp().toEpochMilli(),
                             deviceConnectionInfo.toJSON());

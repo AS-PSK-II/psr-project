@@ -11,7 +11,6 @@ const sendConnectivityInfo = (): void => {
             tcpServer: [tcpServerConfig],
             timestamp: new Date().getTime()
         }));
-        console.log("SendConnectivityInfo");
     }, 60000)
 }
 

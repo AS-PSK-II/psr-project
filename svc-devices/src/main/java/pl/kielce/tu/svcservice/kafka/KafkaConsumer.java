@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.kielce.tu.svcservice.cache.DeviceConfigCache;
 import pl.kielce.tu.svcservice.model.Alert;
 import pl.kielce.tu.svcservice.model.DeviceConfig;
 import pl.kielce.tu.svcservice.repositories.DeviceConfigRepository;
@@ -26,7 +27,18 @@ public class KafkaConsumer {
 
         deviceConfigRepository.save(deviceConfig);
 
-        generateAlert(deviceConfig);
+        DeviceConfigCache deviceConfigCache = DeviceConfigCache.getInstance();
+        boolean isAlertGenerated = false;
+
+        if (!deviceConfigCache.containsDeviceConfig(deviceConfig.getId().toString())) {
+            generateAlert(deviceConfig);
+            isAlertGenerated = true;
+        }
+        if (!isAlertGenerated && !deviceConfig.isConnected()) {
+            generateAlert(deviceConfig);
+        }
+
+        deviceConfigCache.addDeviceConfig(deviceConfig);
     }
 
     private void generateAlert(DeviceConfig deviceConfig) {

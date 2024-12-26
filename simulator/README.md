@@ -30,7 +30,7 @@
   "name": "string",
   "isActive": "boolean",
   "isConnected": "boolean",
-  "timestamp": "Date ISO Format UTC"
+  "timestamp": "number"
 }
 ```
 
@@ -42,7 +42,7 @@ Przykład:
   "name": "sim_1",
   "isActive": true,
   "isConnected": true,
-  "timestamp": "2024-10-21T14:15:39.231Z"
+  "timestamp": 1735225163486
 }
 ```
 
@@ -55,7 +55,7 @@ device;property;value;timestamp
 Przykład:
 
 ```CSV
-d26ccb5b-8d40-44ca-9e34-831a3470681e;temperature;18.23;2024-10-21T10:23:38.031Z
+d26ccb5b-8d40-44ca-9e34-831a3470681e;temperature;18.23;1735225163486
 ```
 
 ## Schemat przychodzącej konfiguracji (String w formacie CSV)

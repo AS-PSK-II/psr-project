@@ -21,3 +21,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+mainClassName = "pl.arusoftware.psrproject.edge.Main"

@@ -34,10 +34,17 @@ public class DeviceConfigRestController {
         return ResponseEntity.ok(deviceConfigs);
     }
 
+    @GetMapping("/{id}/config")
+    public ResponseEntity<List<DeviceSensorConfigDTO>> getDeviceSensorsConfig(@PathVariable UUID id) {
+        List<DeviceSensorConfig> deviceSensorsConfig = deviceSensorConfigRepository.findAllByDevice(id);
+
+        return ResponseEntity.ok(deviceSensorsConfig.stream().map(DeviceSensorConfigDTO::fromDeviceSensorConfiguration).toList());
+    }
+
     @PostMapping("/{id}/config")
     @Transactional
-    public ResponseEntity<DeviceConfig> createDeviceConfig(@PathVariable String id, @RequestBody DeviceSensorConfigDTO deviceSensorConfigDTO) {
-        Optional<DeviceConfig> foundDeviceConfig = deviceConfigRepository.findById(UUID.fromString(id));
+    public ResponseEntity<DeviceConfig> createDeviceConfig(@PathVariable UUID id, @RequestBody DeviceSensorConfigDTO deviceSensorConfigDTO) {
+        Optional<DeviceConfig> foundDeviceConfig = deviceConfigRepository.findById(id);
 
 
         if (foundDeviceConfig.isEmpty()) {

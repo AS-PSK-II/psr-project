@@ -28,6 +28,7 @@ public class Alert {
     @Column(name = "DATA", columnDefinition = "jsonb")
     private String data;
 
+    private boolean acknowledged = false;
 
     private Instant createdAt = Instant.now();
 

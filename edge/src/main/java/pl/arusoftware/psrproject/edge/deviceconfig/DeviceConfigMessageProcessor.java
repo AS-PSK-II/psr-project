@@ -33,6 +33,7 @@ public class DeviceConfigMessageProcessor implements Runnable {
                         }
                     }
                     Thread.sleep(1000);
+                    tcpClient.closeSocket();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

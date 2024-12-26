@@ -10,7 +10,7 @@ public record Telemetry(String deviceId, String property, double value, Instant 
 
     public static Telemetry fromCSV(String line) {
         String[] split = line.split(";");
-        return new Telemetry(split[0], split[1], Double.parseDouble(split[2]), Instant.parse(split[3]));
+        return new Telemetry(split[0], split[1], Double.parseDouble(split[2]), Instant.ofEpochMilli(Long.parseLong(split[3])));
     }
 
     public String toJSON() {

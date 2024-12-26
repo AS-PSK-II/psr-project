@@ -5,10 +5,23 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class TCPClient {
-        public void sendData(String address, int port, String message) throws IOException {
-            try (Socket socket = new Socket(address, port);
-                 OutputStream os = socket.getOutputStream()) {
-                os.write(message.getBytes());
-            }
+    private Socket socket;
+
+    public void sendData(String address, int port, String message) {
+        try {
+            this.socket = new Socket(address, port);
+            OutputStream os = socket.getOutputStream();
+            os.write(message.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void closeSocket() {
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

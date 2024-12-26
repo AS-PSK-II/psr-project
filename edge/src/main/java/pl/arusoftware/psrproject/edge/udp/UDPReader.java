@@ -18,15 +18,21 @@ public class UDPReader implements Observer {
     @Override
     public void update(String message) {
         if (message != null) {
-            if (message.startsWith("{")) {
-                Device deviceConnectionInfo = Device.fromJSON(message);
-                producer.send("device", deviceConnectionInfo.id() + "-" + deviceConnectionInfo.timestamp().toEpochMilli(),
-                        deviceConnectionInfo.toJSON());
-                DeviceCache cache = DeviceCache.getInstance();
-                cache.addDevice(deviceConnectionInfo.id(), deviceConnectionInfo);
-            } else {
-                Telemetry telemetry = Telemetry.fromCSV(message);
-                producer.send("data", telemetry.deviceId() + "-" + telemetry.timestamp().toEpochMilli(), telemetry.toJSON());
+            try {
+                if (message.startsWith("{")) {
+                    System.out.println(message);
+                    Device deviceConnectionInfo = Device.fromJSON(message);
+                    producer.send("device", deviceConnectionInfo.id() + "-" + deviceConnectionInfo.timestamp().toEpochMilli(),
+                            deviceConnectionInfo.toJSON());
+                    DeviceCache cache = DeviceCache.getInstance();
+                    cache.addDevice(deviceConnectionInfo.id(), deviceConnectionInfo);
+                } else {
+                    Telemetry telemetry = Telemetry.fromCSV(message);
+                    producer.send("data", telemetry.deviceId() + "-" + telemetry.timestamp().toEpochMilli(), telemetry.toJSON());
+                }
+            } catch (Exception e) {
+                System.out.println("Message wrong format");
+                e.printStackTrace();
             }
         }
     }

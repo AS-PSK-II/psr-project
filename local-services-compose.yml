@@ -38,6 +38,17 @@ services:
       APP_DB_PASSWORD: "distributed_iot"
       APP_KAFKA_HOST: "kafka1:19092"
 
+  svc-alerts:
+    image: distributed-iot/svc-alerts
+    hostname: svc-alerts
+    container_name: svc-alerts
+    networks:
+      - distributed-iot
+    environment:
+      APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
+      APP_DB_USER: "distributed_iot"
+      APP_DB_PASSWORD: "distributed_iot"
+
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zoo1

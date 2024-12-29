@@ -11,5 +11,5 @@ export const edgeConnectionConfig: EdgeConnection = {
 
 export const tcpServerConfig: TCPServer = {
     port: parseInt(process.env.APP_EDGE_TCP_PORT, 10) || 12346,
-    address: "127.0.0.1"
+    address: process.env.APP_EDGE_TCP_SERVER_HOST || "127.0.0.1"
 }

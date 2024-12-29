@@ -29,8 +29,8 @@ const edgeConnector: EdgeConnector = {
             });
         });
 
-        console.log(`Starting TCP server on port ${tcpServerConfig.port}`)
-        tcpServer.listen(tcpServerConfig.port, "localhost");
+        console.log(`Starting TCP server on port ${tcpServerConfig.port} and address ${tcpServerConfig.address}`)
+        tcpServer.listen(tcpServerConfig.port, tcpServerConfig.address);
      }
 }
 

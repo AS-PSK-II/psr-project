@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import pl.arusoftware.psrproject.edge.config.AppConfig;
 
 import java.time.Duration;
 import java.util.List;
@@ -25,11 +26,11 @@ public class KafkaConsumer {
         props.put(BOOTSTRAP_SERVERS_CONFIG, kafkaUrl);
         props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getCanonicalName());
         props.put(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getCanonicalName());
-        props.put(GROUP_ID_CONFIG, "edge-app");
+        props.put(GROUP_ID_CONFIG, AppConfig.KAFKA_CONSUMER_GROUP);
         props.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         consumer = new org.apache.kafka.clients.consumer.KafkaConsumer<>(props);
-        consumer.subscribe(List.of("device-config"));
+        consumer.subscribe(List.of(AppConfig.KAFKA_DEVICE_CONFIG_TOPIC));
     }
 
     public void receive(java.util.function.Consumer<String> configReceiver) {

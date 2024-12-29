@@ -12,7 +12,7 @@ public class KafkaConsumer {
 
     private final TelemetryDataRepository telemetryDataRepository;
 
-    @KafkaListener(topics = "data", groupId = "app-collectors")
+    @KafkaListener(topics = {"${app.kafka.data.topic:data}"})
     public void consume(String message) {
         TelemetryData telemetryData = TelemetryData.fromJSON(message);
 

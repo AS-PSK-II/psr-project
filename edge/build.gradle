@@ -4,15 +4,26 @@ plugins {
 }
 
 group = 'pl.arusoftware'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
 
 repositories {
     mavenCentral()
 }
 
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes(
+                'Main-Class': 'pl.arusoftware.psrproject.edge.Main'
+        )
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
 dependencies {
     implementation 'com.google.code.gson:gson:2.11.0'
-    implementation 'org.apache.kafka:kafka-clients:3.3.1'
+    implementation 'org.apache.kafka:kafka-clients:3.7.1'
+    implementation 'ch.qos.logback:logback-classic:1.5.15'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

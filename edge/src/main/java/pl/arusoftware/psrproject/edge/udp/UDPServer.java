@@ -1,5 +1,8 @@
 package pl.arusoftware.psrproject.edge.udp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.arusoftware.psrproject.edge.config.AppConfig;
 import pl.arusoftware.psrproject.edge.udp.observer.Observer;
 import pl.arusoftware.psrproject.edge.udp.observer.Subject;
 
@@ -13,17 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UDPServer implements Subject {
+    private static final Logger log = LoggerFactory.getLogger(UDPServer.class);
     private final DatagramSocket socket;
     private final List<Observer> observers;
 
     public UDPServer() throws SocketException {
-        this(12345);
+        this(AppConfig.APP_PORT);
     }
 
     public UDPServer(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
         this.observers = new ArrayList<>();
-        System.out.println("UDP Server started at " + Instant.now().toString());
+        log.info("UDP Server started on port {} at {}", port, Instant.now().toString());
     }
 
     @Override

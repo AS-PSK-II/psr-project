@@ -1,12 +1,49 @@
-version: '4'
-
 services:
+  simulator1:
+    image: distributed-iot/simulator
+    hostname: simulator1
+    container_name: simulator1
+    networks:
+      - distributed-iot
+    environment:
+      APP_EDGE_UDP_HOST: edge
+      APP_EDGE_UDP_PORT: 12345
+      APP_EDGE_TCP_SERVER_HOST: simulator1
+      APP_EDGE_TCP_PORT: 12345
+      APP_DEVICE_ID: bbfc4964-330b-4a61-95aa-e5fc7dee9555
+      APP_DEVICE_NAME: simulator1
+    depends_on:
+      - edge
+
+  edge:
+    image: distributed-iot/edge
+    hostname: edge
+    container_name: edge
+    networks:
+      - distributed-iot
+    environment:
+      APP_KAFKA_HOST: "kafka1:19092"
+    depends_on:
+      - kafka1
+
+  collector:
+    image: distributed-iot/collector
+    hostname: collector
+    container_name: collector
+    networks:
+      - distributed-iot
+    environment:
+      APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
+      APP_DB_USER: "distributed_iot"
+      APP_DB_PASSWORD: "distributed_iot"
+      APP_KAFKA_HOST: "kafka1:19092"
+
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zoo1
     container_name: zoo1
-    ports:
-      - "2181:2181"
+    networks:
+      - distributed-iot
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_SERVER_ID: 1
@@ -16,10 +53,10 @@ services:
     image: confluentinc/cp-kafka:7.3.2
     hostname: kafka1
     container_name: kafka1
+    networks:
+      - distributed-iot
     ports:
       - "9092:9092"
-      - "29092:29092"
-      - "9999:9999"
     environment:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
@@ -41,8 +78,15 @@ services:
     image: "postgres:latest"
     container_name: "postgresql"
     restart: always
+    networks:
+      - distributed-iot
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=qlMK5TO50\BSrmrjv3GWsm(qo\Ml(DQj
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  distributed-iot:

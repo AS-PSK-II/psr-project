@@ -1,6 +1,7 @@
 package pl.arusoftware.psrproject.edge.udp;
 
 import pl.arusoftware.psrproject.edge.cache.DeviceCache;
+import pl.arusoftware.psrproject.edge.config.AppConfig;
 import pl.arusoftware.psrproject.edge.kafka.KafkaProducer;
 import pl.arusoftware.psrproject.edge.model.Device;
 import pl.arusoftware.psrproject.edge.model.Telemetry;
@@ -21,13 +22,13 @@ public class UDPReader implements Observer {
             try {
                 if (message.startsWith("{")) {
                     Device deviceConnectionInfo = Device.fromJSON(message);
-                    producer.send("device", deviceConnectionInfo.id() + "-" + deviceConnectionInfo.timestamp().toEpochMilli(),
+                    producer.send(AppConfig.KAFKA_DEVICE_TOPIC, deviceConnectionInfo.id() + "-" + deviceConnectionInfo.timestamp().toEpochMilli(),
                             deviceConnectionInfo.toJSON());
                     DeviceCache cache = DeviceCache.getInstance();
                     cache.addDevice(deviceConnectionInfo.id(), deviceConnectionInfo);
                 } else {
                     Telemetry telemetry = Telemetry.fromCSV(message);
-                    producer.send("data", telemetry.deviceId() + "-" + telemetry.timestamp().toEpochMilli(), telemetry.toJSON());
+                    producer.send(AppConfig.KAFKA_DATA_TOPIC, telemetry.deviceId() + "-" + telemetry.timestamp().toEpochMilli(), telemetry.toJSON());
                 }
             } catch (Exception e) {
                 System.out.println("Message wrong format");

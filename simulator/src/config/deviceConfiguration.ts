@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export const deviceConfig: DeviceConfig = {
-    id: uuid(),
+    id: process.env.APP_DEVICE_ID || uuid(),
     name: process.env.APP_DEVICE_NAME || "simulator",
     isConnected: true,
     isActive: true,

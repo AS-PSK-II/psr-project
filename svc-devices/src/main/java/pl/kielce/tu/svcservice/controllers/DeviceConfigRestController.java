@@ -2,6 +2,7 @@ package pl.kielce.tu.svcservice.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,8 @@ import java.util.UUID;
 @Slf4j
 public class DeviceConfigRestController {
 
-    private final static String DEVICE_CONFIG_TOPIC = "device-config";
+    @Value("${app.kafka.device-config.topic}")
+    private String DEVICE_CONFIG_TOPIC;
 
     private final DeviceConfigRepository deviceConfigRepository;
     private final DeviceSensorConfigRepository deviceSensorConfigRepository;
@@ -45,7 +47,6 @@ public class DeviceConfigRestController {
     @Transactional
     public ResponseEntity<DeviceConfig> createDeviceConfig(@PathVariable UUID id, @RequestBody DeviceSensorConfigDTO deviceSensorConfigDTO) {
         Optional<DeviceConfig> foundDeviceConfig = deviceConfigRepository.findById(id);
-
 
         if (foundDeviceConfig.isEmpty()) {
             return ResponseEntity.notFound().build();

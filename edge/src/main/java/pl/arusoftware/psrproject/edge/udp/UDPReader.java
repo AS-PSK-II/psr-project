@@ -1,5 +1,7 @@
 package pl.arusoftware.psrproject.edge.udp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.arusoftware.psrproject.edge.cache.DeviceCache;
 import pl.arusoftware.psrproject.edge.config.AppConfig;
 import pl.arusoftware.psrproject.edge.kafka.KafkaProducer;
@@ -9,6 +11,7 @@ import pl.arusoftware.psrproject.edge.udp.observer.Observer;
 import pl.arusoftware.psrproject.edge.udp.observer.Subject;
 
 public class UDPReader implements Observer {
+    private final static Logger log = LoggerFactory.getLogger(UDPReader.class);
     private final KafkaProducer producer;
 
     public UDPReader(Subject subject, KafkaProducer producer) {
@@ -31,8 +34,7 @@ public class UDPReader implements Observer {
                     producer.send(AppConfig.KAFKA_DATA_TOPIC, telemetry.deviceId() + "-" + telemetry.timestamp().toEpochMilli(), telemetry.toJSON());
                 }
             } catch (Exception e) {
-                System.out.println("Message wrong format");
-                e.printStackTrace();
+                log.error("Message wrong format: {}", e.getMessage(), e);
             }
         }
     }

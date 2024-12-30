@@ -18,7 +18,7 @@ public class TCPClient {
             OutputStream os = socket.getOutputStream();
             os.write(message.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error sending data", e);
         }
     }
 
@@ -26,7 +26,7 @@ public class TCPClient {
         try {
             this.socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error closing socket", e);
         }
     }
 }

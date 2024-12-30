@@ -9,8 +9,8 @@ docker build -t distributed-iot/edge:latest .
 cd ../collector
 docker build -t distributed-iot/collector:latest .
 
-#cd ../svc-devices
-#docker build -t distributed-iot/svc-devices:latest .
+cd ../svc-devices
+docker build -t distributed-iot/svc-devices:latest .
 
 cd ../svc-alerts
 docker build -t distributed-iot/svc-alerts:latest .

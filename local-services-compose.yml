@@ -21,6 +21,8 @@ services:
     container_name: edge
     networks:
       - distributed-iot
+    ports:
+      - 12345:12345/udp
     environment:
       APP_KAFKA_HOST: "kafka1:19092"
     depends_on:
@@ -48,6 +50,39 @@ services:
       APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
       APP_DB_USER: "distributed_iot"
       APP_DB_PASSWORD: "distributed_iot"
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  svc-devices:
+    image: distributed-iot/svc-devices
+    hostname: svc-devices
+    container_name: svc-devices
+    networks:
+      - distributed-iot
+    environment:
+      APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
+      APP_DB_USER: "distributed_iot"
+      APP_DB_PASSWORD: "distributed_iot"
+      APP_KAFKA_HOST: "kafka1:19092"
+      APP_SVC_ALERTS_CREATE_ALERT_ENDPOINT: "http://svc-alerts:8080/api/v1/alerts"
+    depends_on:
+      svc-alerts:
+        condition: service_healthy
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   zoo1:
     image: confluentinc/cp-zookeeper:7.3.2
@@ -98,6 +133,12 @@ services:
       - POSTGRES_PASSWORD=qlMK5TO50\BSrmrjv3GWsm(qo\Ml(DQj
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "distributed_iot"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
 
 networks:
   distributed-iot:

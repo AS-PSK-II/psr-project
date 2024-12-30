@@ -109,7 +109,7 @@ void sendData(const char* message) {
 void connectWithWiFi() {
     WiFi.mode(WIFI_STA);
     WiFi.hostname("ESP8266");
-    WiFi.begin("aro2", "25HxzaRt1g27");
+    WiFi.begin("ssid", "password");
 
     Serial.print("Connecting with wifi");
     while(WiFi.status() != WL_CONNECTED) {

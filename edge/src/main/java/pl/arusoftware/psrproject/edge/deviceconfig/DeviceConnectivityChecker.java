@@ -1,5 +1,7 @@
 package pl.arusoftware.psrproject.edge.deviceconfig;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.arusoftware.psrproject.edge.cache.DeviceCache;
 import pl.arusoftware.psrproject.edge.kafka.KafkaProducer;
 import pl.arusoftware.psrproject.edge.model.Device;
@@ -9,6 +11,7 @@ import java.time.Instant;
 import java.util.Map;
 
 public class DeviceConnectivityChecker implements Runnable {
+    private final static Logger log = LoggerFactory.getLogger(DeviceConnectivityChecker.class);
     private final KafkaProducer producer;
     private final DeviceCache deviceCache;
 
@@ -27,7 +30,7 @@ public class DeviceConnectivityChecker implements Runnable {
                 for (Device device : devices.values()) {
                     Duration difference = Duration.between(device.timestamp(), now);
                     if (difference.toSeconds() > 60 && device.isConnected()) {
-                        System.out.println("Device " + device.id() + " disconnected");
+                        log.info("Device {} disconnected", device.id());
                         Device updatedDevice = new Device(
                                 device.id(),
                                 device.name(),
@@ -42,7 +45,7 @@ public class DeviceConnectivityChecker implements Runnable {
                     }
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("Interrupted", e);
             }
         }
     }

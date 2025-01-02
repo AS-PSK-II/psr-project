@@ -46,6 +46,10 @@ public class DeviceConfigRestController {
     @PostMapping("/{id}/config")
     @Transactional
     public ResponseEntity<DeviceConfig> createDeviceConfig(@PathVariable UUID id, @RequestBody DeviceSensorConfigDTO deviceSensorConfigDTO) {
+        if (!id.equals(deviceSensorConfigDTO.device())) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Optional<DeviceConfig> foundDeviceConfig = deviceConfigRepository.findById(id);
 
         if (foundDeviceConfig.isEmpty()) {

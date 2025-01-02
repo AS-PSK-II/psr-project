@@ -30,7 +30,7 @@ public class AlertRestController {
     @PostMapping(value = {"", "/"})
     public ResponseEntity<Alert> createAlert(@RequestBody Alert alert) {
         alertRepository.save(alert);
-        return ResponseEntity.created().build();
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")

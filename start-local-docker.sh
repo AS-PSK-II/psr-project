@@ -15,6 +15,9 @@ docker build -t distributed-iot/svc-devices:latest .
 cd ../svc-alerts
 docker build -t distributed-iot/svc-alerts:latest .
 
+cd ../svc-historical-data
+docker build -t distributed-iot/svc-historical-data .
+
 cd ../
 docker-compose -f local-services-compose.yml up -d
 

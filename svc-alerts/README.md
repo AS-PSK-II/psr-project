@@ -29,7 +29,8 @@ gradlew.bat run
 
 # Schemat danych
 
-# Schemat danych wejściowych do REST API (JSON)
+<details>
+    <summary><b>Schemat danych wejściowych do REST API (JSON)</b></summary>
 
 ```json
 {
@@ -51,7 +52,10 @@ Przykład
 }
 ```
 
-## Schemat alertów w bazie danych
+</details>
+
+<details>
+    <summary><b>Schemat alertów w bazie danych</b></summary>
 
 ```sql
 create table alert
@@ -62,3 +66,93 @@ create table alert
     message    varchar(255)
 );
 ```
+
+</details>
+
+# REST
+
+<details>
+    <summary><b>Pobieranie alertów</b></summary>
+
+`GET` `/api/v1/alerts`
+
+### Parametry
+
+> | NAME    | TYPE        | DATA TYPE            | DESCRIPTION                                   |
+> |---------|-------------|----------------------|-----------------------------------------------|
+> | acknowledged | opcjonalny | boolean                 | informacja czy pobieramy również alerty, z którymi użytkownik się już zapoznał - domyślnie `false` |
+
+### Odpowiedzi
+
+> | HTTP CODE | CONTENT-TYPE       | RESPONSE         |
+> |-----------|--------------------|------------------|
+> | 200       | `application/json` | array of data    |
+
+### Przykład odpowiedzi
+
+```json
+[
+    {
+        "id": "uuid",
+        "message": "Device Connected",
+        "data": "stringified JSON object",
+        "acknowledged": false,
+        "createdAt": "2024-12-13T12:34:42.371Z"
+    }
+]
+```
+
+</details>
+
+<details>
+    <summary><b>Tworzenie alertu</b></summary>
+
+`POST` `/api/v1/alerts`
+
+### Parametry
+
+> | NAME    | TYPE        | DATA TYPE            | DESCRIPTION                                   |
+> |---------|-------------|----------------------|-----------------------------------------------|
+> | none | wymagany | obiekt JSON                 | N/A |
+
+### Odpowiedzi
+
+> | HTTP CODE | CONTENT-TYPE       | RESPONSE         |
+> |-----------|--------------------|------------------|
+> | 201       | `application/json` | created   |
+> | 500       | `application/json` | internal server error |
+
+### Przykład odpowiedzi
+
+```text
+None
+```
+
+</details>
+
+<detailsa>
+    <summary><b>Aktualizacja alertu</b></summary>
+
+`PUT` `/api/v1/alerts/{id}`
+
+### Parametry
+
+> | NAME    | TYPE        | DATA TYPE            | DESCRIPTION                                   |
+> |---------|-------------|----------------------|-----------------------------------------------|
+> | id | wymagany | UUID                 | id alertu |
+
+### Odpowiedzi
+
+> | HTTP CODE | CONTENT-TYPE       | RESPONSE        |
+> |-----------|--------------------|-----------------|
+> | 204       | `application/json` | no content   |
+> | 404       | `application/json` | alert not found |
+> | 500       | `application/json` | internal server error |
+
+### Przykład odpowiedzi
+
+```text
+None
+```
+
+</details>

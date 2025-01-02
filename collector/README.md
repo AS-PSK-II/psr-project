@@ -33,7 +33,8 @@ gradlew.bat run
 
 # Schemat danych
 
-## Schemat danych telemetrycznych pobieranych z Kafki (JSON)
+<details>
+    <summary><b>Schemat danych telemetrycznych pobieranych z Kafki (JSON)</b></summary>
 
 ```json
 {
@@ -55,7 +56,10 @@ Przykład:
 }
 ```
 
-## Schemat danych telemetrychnych w bazie danych
+</details>
+
+<details>
+    <summary><b>Schemat danych telemetrychnych w bazie danych</b></summary>
 
 ```sql
 create table telemetry_data
@@ -67,3 +71,5 @@ create table telemetry_data
     property_value double precision
 );
 ```
+
+</details>

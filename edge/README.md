@@ -34,7 +34,8 @@ gradlew.bat run
 
 # Schemat danych
 
-## Schemat danych telemetrycznych wysyłanych na Kafkę (JSON)
+<details>
+    <summary><b>Schemat danych telemetrycznych wysyłanych na Kafkę (JSON)</b></summary>
 
 ```JSON
 {
@@ -56,7 +57,10 @@ Przykład:
 }
 ```
 
-## Schemat danych konfiguracji urządzenia (JSON)
+</details>
+
+<details>
+    <summary><b>Schemat danych konfiguracji urządzenia (JSON)</b></summary>
 
 ```JSON
 {
@@ -76,3 +80,4 @@ Przykład:
 }
 ```
 
+</details>

@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/devices")
+@RequestMapping({"/api/v1/devices", "/api/v1/devices/"})
 @Slf4j
 public class DevicesRestController {
 

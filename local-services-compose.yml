@@ -47,6 +47,7 @@ services:
     networks:
       - distributed-iot
     environment:
+      APP_PORT: 8080
       APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
       APP_DB_USER: "distributed_iot"
       APP_DB_PASSWORD: "distributed_iot"
@@ -67,6 +68,7 @@ services:
     networks:
       - distributed-iot
     environment:
+      APP_PORT: 8080
       APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
       APP_DB_USER: "distributed_iot"
       APP_DB_PASSWORD: "distributed_iot"
@@ -91,6 +93,7 @@ services:
     networks:
       - distributed-iot
     environment:
+      APP_PORT: 8080
       APP_DB_CONNECTION_STRING: "jdbc:postgresql://postgresql:5432/distributed_iot"
       APP_DB_USER: "distributed_iot"
       APP_DB_PASSWORD: "distributed_iot"
